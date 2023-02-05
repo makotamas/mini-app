@@ -39,7 +39,15 @@ document.querySelector('#root').addEventListener('click', (e) => {
           console.log(user);
           renderInnerPage();
         } else {
-          renderLoginPage();
+          // renderLoginPage();
+          const errorMessage = document.createElement('p');
+          errorMessage.innerHTML =
+            'Email already exists. <a href="#" id="forgotPassword">Forgot Password?</a>';
+          errorMessage.style.color = 'red';
+          document.querySelector('.block-sign-up').appendChild(errorMessage);
+          document.querySelector('#forgotPassword').addEventListener('click', () => {
+            renderForgotPasswordPage();
+          });
         }
       });
     } else {
