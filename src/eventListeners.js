@@ -33,13 +33,28 @@ document.querySelector('#root').addEventListener('click', (e) => {
     const email = document.querySelector('#signUpEmail').value;
     const password = document.querySelector('#signUpPassword').value;
     const verifyPassword = document.querySelector('#verifySignUpPassword').value;
+    const passwordRequirements = document.querySelector('#passwordRequirements');
+
+    const isPasswordValid = (password) => {
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return passwordRegex.test(password);
+    };
+
+    if (!isPasswordValid(password)) {
+      passwordRequirements.innerHTML =
+        'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character (@$!%*?&)';
+      passwordRequirements.style.color = 'red';
+      return;
+    }
+
     if (password === verifyPassword) {
+      passwordRequirements.innerHTML = '';
       signUp(email, password).then((user) => {
         if (user) {
           console.log(user);
           renderInnerPage();
         } else {
-          // renderLoginPage();
           const errorMessage = document.createElement('p');
           errorMessage.innerHTML =
             'Email already exists. <a href="#" id="forgotPassword">Forgot Password?</a>';
