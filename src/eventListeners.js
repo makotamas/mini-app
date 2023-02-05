@@ -11,6 +11,11 @@ document.querySelector('#root').addEventListener('click', (e) => {
       if (user) {
         console.log(user);
         renderInnerPage();
+      } else {
+        const errorMessage = document.createElement('p');
+        errorMessage.innerHTML = 'Incorrect email or password';
+        errorMessage.style.color = 'red';
+        document.querySelector('.block-log-in').appendChild(errorMessage);
       }
     });
   }
